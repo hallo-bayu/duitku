@@ -11,13 +11,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Duitku — Financial Assistant",
-  description: "Catat pengeluaran semudah chat. AI-powered personal finance tracker.",
+  title: "Ngirit — Catat pengeluaran semudah chat",
+  description: "Catat pengeluaran semudah chat. Powered by Giri AI.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Duitku",
+    title: "Ngirit",
   },
 };
 
@@ -27,12 +27,14 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#050505",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className="dark">
+    // suppressHydrationWarning: mencegah error dari browser extension
+    // seperti Grammarly, LanguageTool, dll yang inject atribut ke HTML
+    <html lang="id" className="dark" suppressHydrationWarning>
       <head>
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,10 +42,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no" />
         <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
-        {/* Apple splash screens */}
-        <meta name="apple-mobile-web-app-title" content="Duitku" />
+        <meta name="apple-mobile-web-app-title" content="Ngirit" />
       </head>
-      <body className={`${inter.className} bg-[#050505] text-white antialiased overflow-hidden`}>
+      <body
+        className={`${inter.className} text-white antialiased overflow-hidden`}
+        suppressHydrationWarning
+      >
         {children}
         <PwaRegister />
       </body>
