@@ -2,57 +2,34 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const NAV = [
+  { href: "/home",         label: "Home",        Icon: IconHome        },
+  { href: "/chat",         label: "Chat",        Icon: IconChat        },
+  { href: "/recap",        label: "Rekap",       Icon: IconRecap       },
+  { href: "/achievements", label: "Achievement", Icon: IconAchievement },
+  { href: "/profile",      label: "Profil",      Icon: IconProfile     },
+];
+
 export default function BottomNav() {
   const pathname = usePathname();
-  const NAV = [
-    { href: "/chat",         label: "Chat",    Icon: IconChat    },
-    { href: "/recap",        label: "Recap",   Icon: IconRecap   },
-    { href: "/achievements", label: "Capaian", Icon: IconTrophy  },
-    { href: "/profile",      label: "Profil",  Icon: IconProfile },
-  ];
   return (
-    <nav
-      className="flex-shrink-0 relative z-10"
-      style={{
-        background: "rgba(0,0,0,0.75)",
-        backdropFilter: "blur(32px)",
-        WebkitBackdropFilter: "blur(32px)",
-        borderTop: "1px solid rgba(255,255,255,0.07)",
-        paddingBottom: "env(safe-area-inset-bottom, 0px)",
-      }}
-    >
+    <nav className="bottom-nav flex-shrink-0" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       <ul className="flex max-w-lg mx-auto">
         {NAV.map(({ href, label, Icon }) => {
           const active = pathname.startsWith(href);
           return (
             <li key={href} className="flex-1">
-              <Link
-                href={href}
-                style={{ minHeight: "60px" }}
-                className="flex flex-col items-center justify-center gap-1.5 relative"
-              >
+              <Link href={href} className="flex flex-col items-center justify-center gap-1 py-3 relative">
                 {active && (
-                  <div
-                    className="absolute top-2 rounded-2xl"
-                    style={{
-                      width: "52px", height: "36px",
-                      background: "rgba(255,59,92,0.14)",
-                      border: "1px solid rgba(255,59,92,0.22)",
-                    }}
-                  />
+                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-1 rounded-full"
+                    style={{ background: "var(--green)" }} />
                 )}
-                <span style={{ position: "relative", zIndex: 1, display: "flex" }}>
-                  <Icon active={active} />
-                </span>
+                <Icon active={active} />
                 <span style={{
-                  fontSize: "10px",
-                  fontWeight: active ? 700 : 400,
-                  position: "relative", zIndex: 1,
-                  color: active ? "#FF3B5C" : "#4a4a4a",
-                  letterSpacing: "0.01em",
-                }}>
-                  {label}
-                </span>
+                  fontSize: "10px", fontWeight: active ? 700 : 500,
+                  fontFamily: "Poppins, sans-serif",
+                  color: active ? "var(--green)" : "var(--text-muted)",
+                }}>{label}</span>
               </Link>
             </li>
           );
@@ -62,73 +39,59 @@ export default function BottomNav() {
   );
 }
 
-/* ── Crisp HD SVG icons — 48px viewBox, sharp strokes ──────── */
-/* Semua senada: stroke style, rounded caps, same weight       */
+const G = "var(--green)";
+const M = "var(--text-muted)";
 
+function IconHome({ active }: { active: boolean }) {
+  const c = active ? G : M;
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"
+        fill={active ? "#DCFCE7" : "none"} stroke={c} strokeWidth="1.8" strokeLinejoin="round"/>
+      <path d="M9 21V12h6v9" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 function IconChat({ active }: { active: boolean }) {
-  const C = active ? "#FF3B5C" : "#5a5a5a";
-  const F = active ? "rgba(255,59,92,0.18)" : "none";
+  const c = active ? G : M;
   return (
-    <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ imageRendering: "crisp-edges" }}>
-      {/* Bubble body */}
-      <rect x="4" y="6" width="32" height="26" rx="8" fill={F} stroke={C} strokeWidth="3" strokeLinejoin="round"/>
-      {/* Dots */}
-      <circle cx="14" cy="19" r="2.5" fill={C}/>
-      <circle cx="20" cy="19" r="2.5" fill={C}/>
-      <circle cx="26" cy="19" r="2.5" fill={C}/>
-      {/* Tail */}
-      <path d="M8 32 L4 42 L16 36" stroke={C} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill={F}/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        fill={active ? "#DCFCE7" : "none"} stroke={c} strokeWidth="1.8" strokeLinejoin="round"/>
+      <circle cx="8" cy="10" r="1" fill={c}/>
+      <circle cx="12" cy="10" r="1" fill={c}/>
+      <circle cx="16" cy="10" r="1" fill={c}/>
     </svg>
   );
 }
-
 function IconRecap({ active }: { active: boolean }) {
-  const C = active ? "#FF3B5C" : "#5a5a5a";
-  const F = active ? "rgba(255,59,92,0.14)" : "none";
+  const c = active ? G : M;
   return (
-    <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ imageRendering: "crisp-edges" }}>
-      {/* Card bg */}
-      <rect x="4" y="4" width="40" height="40" rx="9" fill={F} stroke={C} strokeWidth="3"/>
-      {/* 3 bars — left short, mid tall, right mid */}
-      <rect x="11" y="26" width="7" height="12" rx="2.5" fill={C} opacity={active ? 1 : 0.7}/>
-      <rect x="20.5" y="18" width="7" height="20" rx="2.5" fill={C}/>
-      <rect x="30" y="22" width="7" height="16" rx="2.5" fill={C} opacity={active ? 1 : 0.7}/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="18" height="18" rx="5"
+        fill={active ? "#DCFCE7" : "none"} stroke={c} strokeWidth="1.8"/>
+      <path d="M7 17V13M12 17V8M17 17V11" stroke={c} strokeWidth="2" strokeLinecap="round"/>
     </svg>
   );
 }
-
-function IconTrophy({ active }: { active: boolean }) {
-  const C = active ? "#FF3B5C" : "#5a5a5a";
-  const F = active ? "rgba(255,59,92,0.18)" : "none";
+function IconAchievement({ active }: { active: boolean }) {
+  const c = active ? G : M;
   return (
-    <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ imageRendering: "crisp-edges" }}>
-      {/* Cup body */}
-      <path d="M14 6h20v18a10 10 0 0 1-20 0V6z" fill={F} stroke={C} strokeWidth="3" strokeLinejoin="round"/>
-      {/* Left handle */}
-      <path d="M14 10H8a1 1 0 0 0-1 1v6a7 7 0 0 0 7 7" stroke={C} strokeWidth="3" strokeLinecap="round"/>
-      {/* Right handle */}
-      <path d="M34 10h6a1 1 0 0 1 1 1v6a7 7 0 0 1-7 7" stroke={C} strokeWidth="3" strokeLinecap="round"/>
-      {/* Stem */}
-      <line x1="24" y1="34" x2="24" y2="40" stroke={C} strokeWidth="3" strokeLinecap="round"/>
-      {/* Base */}
-      <rect x="14" y="40" width="20" height="4" rx="2" fill={C}/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M8 3h8v10a4 4 0 0 1-8 0V3z"
+        fill={active ? "#DCFCE7" : "none"} stroke={c} strokeWidth="1.8" strokeLinejoin="round"/>
+      <path d="M8 6H5a1 1 0 0 0-1 1v2a4 4 0 0 0 4 4M16 6h3a1 1 0 0 1 1 1v2a4 4 0 0 1-4 4"
+        stroke={c} strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M12 17v3M9 20h6" stroke={c} strokeWidth="1.8" strokeLinecap="round"/>
     </svg>
   );
 }
-
 function IconProfile({ active }: { active: boolean }) {
-  const C = active ? "#FF3B5C" : "#5a5a5a";
-  const F = active ? "rgba(255,59,92,0.18)" : "none";
+  const c = active ? G : M;
   return (
-    <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ imageRendering: "crisp-edges" }}>
-      {/* Avatar circle */}
-      <circle cx="24" cy="16" r="9" fill={F} stroke={C} strokeWidth="3"/>
-      {/* Body / shoulders */}
-      <path d="M6 42c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke={C} strokeWidth="3" strokeLinecap="round"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" fill={active ? "#DCFCE7" : "none"} stroke={c} strokeWidth="1.8"/>
+      <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke={c} strokeWidth="1.8" strokeLinecap="round"/>
     </svg>
   );
 }

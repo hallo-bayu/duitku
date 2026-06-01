@@ -2,77 +2,267 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --green: #22C55E;
+  --green-dark: #16A34A;
+  --green-light: #DCFCE7;
+  --green-bg: #F0FDF4;
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --text: #111827;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --status-safe: #22C55E;
+  --status-warning: #EAB308;
+  --status-danger: #F97316;
+  --status-over: #EF4444;
+  --shadow: 0 8px 30px rgba(15,23,42,0.06);
+  --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+  --r-card: 32px;
+  --r-small: 24px;
+  --r-btn: 999px;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 * { -webkit-tap-highlight-color: transparent; }
 
 html { overflow: hidden; height: 100%; -webkit-text-size-adjust: 100%; }
 
 body {
-  min-height: 100%;
-  height: 100dvh;
-  overscroll-behavior: none;
-  overflow: hidden;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-
-  /*
-   * Background: hitam di atas, blob merah besar di bawah-kiri + bawah-kanan
-   * Matches the reference image exactly
-   */
-  background-color: #000;
-  background-image:
-    radial-gradient(ellipse 100% 75% at 15% 95%, rgba(210, 0, 20, 1.0) 0%, rgba(160, 0, 15, 0.85) 35%, rgba(80, 0, 5, 0.4) 60%, transparent 80%),
-    radial-gradient(ellipse 70% 55% at 80% 100%, rgba(180, 0, 15, 0.65) 0%, rgba(100, 0, 5, 0.3) 50%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 50% 80%, rgba(140, 0, 10, 0.35) 0%, transparent 60%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  min-height: 100%; height: 100dvh;
+  overscroll-behavior: none; overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Pastikan semua page wrapper tidak override background */
-#__next, main { background: transparent !important; }
-
-::-webkit-scrollbar { width: 2px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,59,92,0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 99px; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* Numbers use Inter */
+.font-inter { font-family: 'Inter', sans-serif; }
+
 @layer components {
-  .glass-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.09);
-    backdrop-filter: blur(24px) saturate(1.5);
-    -webkit-backdrop-filter: blur(24px) saturate(1.5);
-    border-radius: 20px;
+  /* Cards */
+  .ng-card {
+    background: var(--card);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
   }
-  .glass-btn {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.10);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 16px;
+  .ng-card-sm {
+    background: var(--card);
+    border-radius: var(--r-small);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* Button primary */
+  .ng-btn {
+    background: var(--green);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    border-radius: var(--r-btn);
+    border: none;
+    min-height: 52px;
+    font-size: 16px;
     transition: all 0.15s;
     cursor: pointer;
+    box-shadow: 0 4px 16px rgba(34,197,94,0.35);
   }
-  .glass-btn:active { transform: scale(0.94); background: rgba(255,255,255,0.11); }
-  .dk-input {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 999px;
+  .ng-btn:active { transform: scale(0.97); }
+  .ng-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Input */
+  .ng-input {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-btn);
     padding: 14px 20px;
     font-size: 16px;
-    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
     width: 100%;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .dk-input::placeholder { color: rgba(255,255,255,0.28); }
-  .dk-input:focus { border-color: rgba(255,59,92,0.5); background: rgba(255,255,255,0.08); }
+  .ng-input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+  }
+  .ng-input::placeholder { color: var(--text-muted); }
+
+  /* Status pills */
+  .status-safe    { background: #F0FDF4; color: #16A34A; }
+  .status-warning { background: #FEFCE8; color: #A16207; }
+  .status-danger  { background: #FFF7ED; color: #C2410C; }
+  .status-over    { background: #FEF2F2; color: #DC2626; }
+
+  /* Progress ring helper */
+  .ring-track { fill: none; stroke: #E5E7EB; }
+  .ring-fill  { fill: none; stroke-linecap: round; transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1); }
 }
 
-/* Loading dots */
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes loadingDot {
+  0%,80%,100% { transform: scale(0.5); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.anim-fadeup  { animation: fadeUp  0.35s ease-out; }
+.anim-fadein  { animation: fadeIn  0.25s ease-out; }
+.anim-msgin   { animation: msgIn   0.22s ease-out; }
+.anim-slideup { animation: slideUp 0.32s cubic-bezier(0.32,0.72,0,1); }
+.anim-popin   { animation: popIn   0.28s cubic-bezier(0.34,1.56,0.64,1); }
+
+.loading-dot:nth-child(1) { animation: loadingDot 1.2s ease-in-out infinite 0s; }
+.loading-dot:nth-child(2) { animation: loadingDot 1.2s ease-in-out infinite 0.2s; }
+.loading-dot:nth-child(3) { animation: loadingDot 1.2s ease-in-out infinite 0.4s; }
+
+/* Safe areas */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.safe-top    { padding-top: env(safe-area-inset-top, 0px); }
+
+/* Chat scroll */
+.chat-messages {
+  flex: 1; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Budget bar */
+.budget-track {
+  height: 8px; background: #E5E7EB;
+  border-radius: 99px; overflow: hidden;
+}
+.budget-fill {
+  height: 100%; border-radius: 99px;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Bottom nav */
+.bottom-nav {
+  background: white;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 20px rgba(15,23,42,0.06);
+}
+
+/* Chat bubbles */
+.bubble-giri {
+  background: white;
+  border-radius: 20px 20px 20px 4px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+.bubble-user {
+  background: var(--green);
+  border-radius: 20px 20px 4px 20px;
+  box-shadow: 0 4px 16px rgba(34,197,94,0.30);
+}
+
+/* Quick action chips */
+.quick-chip {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.quick-chip:active { transform: scale(0.95); border-color: var(--green); }
+
+/* ── Animations ── */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-fadeup {
+  animation: fadeup 0.35s ease-out both;
+}
+
+/* Quick chip card */
+.quick-chip {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.quick-chip:active { transform: scale(0.94); }
+
+/* Bottom nav */
+.bottom-nav {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 20px rgba(15,23,42,0.06);
+}
+
+/* Chat input */
+.chat-input {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.chat-input::placeholder { color: var(--text-muted); }
+.chat-input:focus { border-color: var(--green); }
+
+/* FAB */
+.ng-fab {
+  background: var(--green);
+  color: white;
+  border-radius: 999px;
+  min-height: 56px;
+  padding: 0 28px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0 6px 24px rgba(34,197,94,0.4);
+  transition: all 0.15s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ng-fab:active { transform: scale(0.96); }
+
+/* Loading dot */
 @keyframes loadingDot {
   0%,80%,100% { transform: scale(0.5); opacity: 0.3; }
   40% { transform: scale(1); opacity: 1; }
@@ -81,38 +271,14 @@ body {
 .loading-dot:nth-child(2) { animation: loadingDot 1.2s ease-in-out infinite 0.2s; }
 .loading-dot:nth-child(3) { animation: loadingDot 1.2s ease-in-out infinite 0.4s; }
 
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; } to { opacity: 1; }
-}
-@keyframes msgIn {
-  from { opacity: 0; transform: translateY(8px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
+/* Safe area */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .safe-top    { padding-top: env(safe-area-inset-top, 0px); }
 
+/* Chat messages scroll */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  background: transparent;
-}
-
-.budget-track {
-  height: 6px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 99px;
-  overflow: hidden;
-}
-.budget-fill {
-  height: 100%;
-  border-radius: 99px;
-  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
 }

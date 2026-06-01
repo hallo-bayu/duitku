@@ -21,7 +21,7 @@ export default function OnboardingPage() {
     const { data: { user } } = await sb.auth.getUser();
     if (!user) { router.push("/login"); return; }
     await sb.from("profiles").upsert({ id: user.id, email: user.email!, daily_budget: finalBudget, personality, streak_days: 0, total_safe_days: 0, total_over_days: 0 });
-    router.push("/chat");
+    router.push("/home");
   }
 
   return (

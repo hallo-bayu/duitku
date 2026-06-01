@@ -19,7 +19,7 @@ export default function LoginPage() {
     if (mode === "login") {
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) { setError("Email atau password salah"); setLoading(false); return; }
-      router.push("/chat"); router.refresh();
+      router.push("/home"); router.refresh();
     } else {
       const { data, error } = await sb.auth.signUp({ email, password });
       if (error) { setError(error.message); setLoading(false); return; }

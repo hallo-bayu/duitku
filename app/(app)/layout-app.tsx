@@ -6,16 +6,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const sb = await createClient();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) redirect("/login");
-
   return (
-    /* background: transparent — biar gradient dari body di globals.css yang tampil */
-    <div
-      style={{ height: "100dvh", background: "transparent" }}
-      className="flex flex-col overflow-hidden"
-    >
-      <main className="flex-1 overflow-hidden min-h-0" style={{ background: "transparent" }}>
-        {children}
-      </main>
+    <div style={{ height: "100dvh", background: "var(--bg)" }} className="flex flex-col overflow-hidden">
+      <main className="flex-1 overflow-hidden min-h-0">{children}</main>
       <BottomNav />
     </div>
   );
