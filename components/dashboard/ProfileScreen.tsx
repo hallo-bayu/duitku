@@ -61,12 +61,16 @@ export default function ProfileScreen({ user, profile, weekSpent = 0 }: Props) {
 
         {/* ── Header ── */}
         <div className="flex items-center justify-between mb-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/logo-ngirit.png"
-            alt="Ngirit"
-            style={{ height: 36, width: "auto", maxWidth: 140, objectFit: "contain", objectPosition: "left center", display: "block" }}
-          />
+          <svg viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg"
+            style={{ height: 34, width: "auto", display: "block" }}>
+            <text x="0" y="40"
+              fontFamily="'Poppins','SF Pro Display',-apple-system,sans-serif"
+              fontSize="44" fontWeight="900" fill="#111827" letterSpacing="-1">
+              Ngirit
+            </text>
+            <ellipse cx="79" cy="5" rx="5.5" ry="7.5" fill="#22C55E" transform="rotate(-20 79 5)"/>
+            <ellipse cx="84.5" cy="2.5" rx="3.5" ry="5.5" fill="#4ADE80" transform="rotate(-20 84.5 2.5)"/>
+          </svg>
           <div className="flex items-center gap-2">
             <div className="ng-card-sm w-10 h-10 flex items-center justify-center cursor-pointer">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">

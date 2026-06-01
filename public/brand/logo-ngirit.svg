@@ -1,0 +1,9 @@
+<svg viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg" width="180" height="50">
+  <!-- N -->
+  <text x="0" y="40" 
+    font-family="'Poppins', 'SF Pro Display', -apple-system, sans-serif"
+    font-size="44" font-weight="900" fill="#111827" letter-spacing="-1">Ngirit</text>
+  <!-- Daun hijau di titik huruf i pertama (posisi sekitar x=75) -->
+  <ellipse cx="79" cy="4" rx="5" ry="7" fill="#22C55E" transform="rotate(-20 79 4)"/>
+  <ellipse cx="84" cy="2" rx="3" ry="5" fill="#4ADE80" transform="rotate(-20 84 2)"/>
+</svg>

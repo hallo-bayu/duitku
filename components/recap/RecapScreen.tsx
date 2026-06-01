@@ -117,7 +117,7 @@ export default function RecapScreen({ profile, transactions, userId }: { profile
         <div className="flex items-start justify-between mb-4">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-ngirit.png" alt="Ngirit" className="h-8 object-contain mb-1" style={{maxWidth:120}}/>
+            <svg viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg" style={{height:32,width:"auto",display:"block",marginBottom:4}}><text x="0" y="40" fontFamily="'Poppins',-apple-system,sans-serif" fontSize="44" fontWeight="900" fill="#111827" letterSpacing="-1">Ngirit</text><ellipse cx="79" cy="5" rx="5.5" ry="7.5" fill="#22C55E" transform="rotate(-20 79 5)"/><ellipse cx="84.5" cy="2.5" rx="3.5" ry="5.5" fill="#4ADE80" transform="rotate(-20 84.5 2.5)"/></svg>
             <h2 className="text-2xl font-black" style={{color:"var(--text)"}}>Rekap</h2>
             <p className="text-xs" style={{color:"var(--text-secondary)"}}>Lihat perjalanan hematmu di sini 💚</p>
           </div>
