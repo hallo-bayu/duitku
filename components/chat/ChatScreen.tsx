@@ -92,18 +92,9 @@ export default function ChatScreen({ userId, profile, initialSpent }: Props) {
       <div className="flex-shrink-0 bg-white border-b" style={{ borderColor: "#E5E7EB", paddingTop: "max(env(safe-area-inset-top), 12px)" }}>
         <div className="flex items-center justify-between px-4 pb-3">
           <div>
-            {/* Logo Ngirit — SVG inline, selalu terlihat */}
-            <svg viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg"
-              style={{ height: 34, width: "auto", display: "block" }}>
-              <text x="0" y="42"
-                fontFamily="'Poppins','SF Pro Display',-apple-system,sans-serif"
-                fontSize="46" fontWeight="900" fill="#111827" letterSpacing="-2">
-                Ngirit
-              </text>
-              <ellipse cx="82" cy="6" rx="5.5" ry="7.5" fill="#22C55E" transform="rotate(-20 82 6)"/>
-              <ellipse cx="88" cy="3" rx="3.5" ry="5" fill="#4ADE80" transform="rotate(-20 88 3)"/>
-            </svg>
-            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>Teman dompetmu 💚</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-ngirit.png" alt="Ngirit" className="h-8 object-contain" />
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>Catat pengeluaran semudah chat.</p>
           </div>
           <div className="flex items-center gap-2">
             {/* streak */}

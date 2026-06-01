@@ -1,63 +1,36 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
   const sb = await createClient();
   const { data: { user } } = await sb.auth.getUser();
-
-  if (!user) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { searchParams } = new URL(request.url);
+  const month = searchParams.get("month") ?? new Date().toISOString().slice(0, 7);
 
-  // Default to current month if not provided
-  const now = new Date();
-  const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-  const month = searchParams.get("month") ?? defaultMonth;
-
-  // Validate format YYYY-MM
-  if (!/^\d{4}-\d{2}$/.test(month)) {
-    return new Response("Invalid month format. Use YYYY-MM", { status: 400 });
-  }
-
+  // Calculate proper end-of-month date
   const [year, mon] = month.split("-").map(Number);
-  const lastDay = new Date(year, mon, 0).getDate();
-  const startDate = `${month}-01`;
+  const lastDay = new Date(year, mon, 0).getDate(); // day 0 of next month = last day of this month
   const endDate = `${month}-${String(lastDay).padStart(2, "0")}`;
 
-  const { data: txs, error } = await sb
+  const { data: txs } = await sb
     .from("transactions")
-    .select("date, description, category, amount")
+    .select("*")
     .eq("user_id", user.id)
-    .gte("date", startDate)
+    .gte("date", `${month}-01`)
     .lte("date", endDate)
     .order("date", { ascending: true });
 
-  if (error) {
-    return new Response("Gagal mengambil data transaksi", { status: 500 });
-  }
-
-  // Build CSV with BOM for Excel compatibility
-  const BOM = "\uFEFF";
-  const header = "Tanggal,Deskripsi,Kategori,Jumlah (Rp)\n";
-  const rows = (txs ?? [])
-    .map(t => {
-      const desc = `"${(t.description ?? "").replace(/"/g, '""')}"`;
-      const cat  = `"${(t.category ?? "").replace(/"/g, '""')}"`;
-      return `${t.date},${desc},${cat},${t.amount}`;
-    })
+  const header = "Tanggal,Deskripsi,Kategori,Jumlah\n";
+  const body = (txs || [])
+    .map(t => `${t.date},"${t.description.replace(/"/g, '""')}",${t.category},${t.amount}`)
     .join("\n");
 
-  const csv = BOM + header + rows;
-  const filename = `ngirit-${month}.csv`;
-
-  return new Response(csv, {
-    status: 200,
+  return new Response(header + body, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${filename}"`,
-      "Cache-Control": "no-store",
+      "Content-Disposition": `attachment; filename="domi-${month}.csv"`,
     },
   });
 }
