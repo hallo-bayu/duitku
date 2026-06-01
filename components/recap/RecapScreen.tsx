@@ -98,7 +98,6 @@ export default function RecapScreen({ profile, transactions, userId }: { profile
   ];
 
   const giriMascot = isOver ? "/brand/giri-shock.png" :
-    status==="danger" ? "/brand/giri-shock.png" :
     total===0 ? "/brand/giri-sleep.png" :
     "/brand/giri-idea.png";
 
